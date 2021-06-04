@@ -1,7 +1,7 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
 
 export const BOARDLENGTH = 10 // boardsize is boardlength^2
-export const BOMBS = 50
+export const BOMBS = 25
 
 // by design the audio feature of mine detection is not perfect. For example, one neighboring mine to another mine may not play a sound 
 
