@@ -189,7 +189,7 @@ export default function MineBoard(props) {
                         <p> 2. Take turns solving your respective minesweeper boards </p>
                         <p> 3. Mouse over cells and use audio to help identify mines </p>
                         <p> 4. Left click to reveal an area. Right click to place/remove a flag </p>
-                        <p> 5. Audio information is player unique, but boards are identical, so be sure to keep your audio secret </p>
+                        <p> 5. Audio information is player unique, but boards are identical </p>
                         <p> 6. There are a lot of mines, so feel free to use the audio to work together, lie, or trade information </p>
                         <p> 7. The game ends when all mines are correctly flagged or someone opens a mine </p>
                         <p> 8. When the game is over, the two boards are placed side by side. Feel free to learn from them! </p>
