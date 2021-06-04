@@ -18,6 +18,7 @@ export default function MineBoard(props) {
     // boards
     const [tbody1, updateT1body] = useState([])
     const [tbody2, updateT2body] = useState([])
+    const [tsolution, updateSolution] = useState([])
 
     // flag count
     const [flagC1, updateFlagC1] = useState(0)
@@ -115,7 +116,6 @@ export default function MineBoard(props) {
             let cells = [];
             for (let j = 0; j < BOARDLENGTH; j++) {
                 const id = i + ' ' + j
-                // may have to handle front end rendering of cells here
                 cells.push(
                     <td style={{...styles.cell, ...{ backgroundColor: cboard[i][j].open && !cboard[i][j].neighborMineCount && !cboard[i][j].mine ? '#CDCDCD' : 'white' }}} key={id} className={k} onClick={() => handleClick(id)} onContextMenu={(e)=> handleRightClick(e, id)} onMouseEnter={(e) => handleEnter(e, id)} onMouseLeave={() => handleStop()}>
                         {cboard[i][j].open ? (cboard[i][j].mine ? '💣' : (cboard[i][j].neighborMineCount ? cboard[i][j].neighborMineCount : null)) : (cboard[i][j].flag ? '🚩' : null)} 
@@ -130,19 +130,40 @@ export default function MineBoard(props) {
         return tbody
     }
 
+    const createSolution = (cboard) => {
+        let tbody = []
+        for (let i = 0; i < BOARDLENGTH; i++) {
+            let cells = [];
+            for (let j = 0; j < BOARDLENGTH; j++) {
+                const id = i + ' ' + j
+                cells.push(
+                    <td style={{...styles.cell, ...{ backgroundColor: !cboard[i][j].neighborMineCount && !cboard[i][j].mine ? '#CDCDCD' : 'white' }}} key={id}>
+                        {(cboard[i][j].mine ? '💣' : (cboard[i][j].neighborMineCount ? cboard[i][j].neighborMineCount : null))} 
+                    </td>
+                );
+            }
+            tbody.push(<tr key={i}>{cells}</tr>);
+        }
+        return tbody
+    }
+
     useEffect(() => { // load audio on mount, they loop by default
         MDLOW.load()
         MDHIGH.load()
 
         MDLOW.loop = true
         MDHIGH.loop = true
+
+        let tsolution = createSolution(props.G.c1)
+        updateSolution(tsolution)
+        // eslint-disable-next-line
     }, [])
     
 
     useEffect(() => { // front end update each move
         let t1body = createTbody(props.G.c1, 0)
         let t2body = createTbody(props.G.c2, 1)
-
+        
         updateT1body(t1body)
         updateT2body(t2body)
         // eslint-disable-next-line
@@ -205,6 +226,10 @@ export default function MineBoard(props) {
                     <h4> Player 2 </h4>
                     <table style={styles.table}>
                         <tbody>{tbody2}</tbody>
+                    </table>
+                    <h4> Solution </h4>
+                    <table style={styles.table}>
+                        <tbody>{tsolution}</tbody>
                     </table>
                 </div>
                 :

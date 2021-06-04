@@ -1,7 +1,7 @@
 {
   "name": "mines",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "homepage": "https://visininjr.github.io/mines/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
