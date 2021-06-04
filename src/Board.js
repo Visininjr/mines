@@ -60,9 +60,10 @@ export default function MineBoard(props) {
             if (space.open || space.flag) return
         }
         props.moves.clickCell(id)
-        updateSwitch(true)
         updateTurn((1 - turn))
+        if (props.ctx.gamover) return
         // toggle boards
+        updateSwitch(true)
         setTimeout(() => {
             updateSwitch(false)
         }, 2000)  
@@ -73,6 +74,7 @@ export default function MineBoard(props) {
         handleStop()
         props.moves.rightClick(id)
         updateTurn(1 - turn)
+        if (props.ctx.gamover) return
         updateSwitch(true)
         setTimeout(() => {
             updateSwitch(false)
@@ -143,6 +145,7 @@ export default function MineBoard(props) {
 
         updateT1body(t1body)
         updateT2body(t2body)
+        // eslint-disable-next-line
     }, [props.G])
 
     useEffect(() => { // gameover
